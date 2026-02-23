@@ -72,8 +72,6 @@ export const getAllTasks = async (req, res) => {
 export const assignTask = async (req, res) => {
     const { taskId, assignedTo } = req.body
 
-    console.log(taskId, assignedTo);
-
     if (!taskId || !assignedTo) {
         return res.status(400).json({
             message: "taskId and assignedTo are required..."

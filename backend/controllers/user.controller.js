@@ -113,3 +113,38 @@ export const getAllUsers = async (req, res) => {
         })
     }
 }
+
+export const reportTo = async (req, res) => {
+    const { userId } = req.body
+
+    try {
+        if (!userId) {
+            return res.status(400).json({
+                message: "missing user id..."
+            })
+        }
+
+        const user = await User.findById(userId)
+
+        if (!user) {
+            return res.status(400).json({
+                message: "user doesn't exists..."
+            })
+        }
+
+        user.reportingTo = userId
+        await user.save()
+
+        res.status(200).json({
+            message: "user reported successfully...",
+            user
+        })
+
+    } catch (error) {
+        console.error("error while reporting user: ", error)
+
+        res.status(500).json({
+            message: "internal server error..."
+        })
+    }
+}
