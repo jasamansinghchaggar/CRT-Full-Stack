@@ -24,3 +24,9 @@ task -> name, desc, assigned (refer to user schema), status (enum => pending, in
 admin: all operations
 manager & team_lead: assign_task
 employee: view & change its task's status
+
+1. change role
+2. reporting
+
+heirarchy:
+    - superadmin -> admin -> manager -> team_lead -> emlpoyee

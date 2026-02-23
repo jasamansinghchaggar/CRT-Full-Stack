@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         enum: ["admin", "manager", "team-lead", "employee"],
         default: "employee"
+    },
+    reportingTo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
     }
 }, { timestamps: true })
 

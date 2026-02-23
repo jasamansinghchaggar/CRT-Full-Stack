@@ -4,6 +4,7 @@ import express from "express"
 import { dbConnection } from "./configs/db.js"
 import userRouter from "./routes/user.route.js"
 import taskRouter from "./routes/task.route.js"
+import permissionRouter from "./routes/permission.route.js"
 
 dotenv.config({
     quiet: true
@@ -30,6 +31,7 @@ app.get("/health", (req, res) => {
 // api routes
 app.use("/api/user", userRouter)
 app.use("/api/task", taskRouter)
+app.use("/api/permission", permissionRouter)
 
 dbConnection()
 app.listen(PORT, () => {
