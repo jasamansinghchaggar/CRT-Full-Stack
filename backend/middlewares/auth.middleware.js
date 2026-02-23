@@ -31,7 +31,7 @@ export const authentication = async (req, res, next) => {
 
     } catch (error) {
         res.status(500).json({
-            message: "internal server error..."
+            message: "internal server error...",
         })
     }
 }
