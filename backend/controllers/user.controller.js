@@ -115,12 +115,18 @@ export const getAllUsers = async (req, res) => {
 }
 
 export const reportTo = async (req, res) => {
-    const { userId } = req.body
+    const { userId, reportTo } = req.body
 
     try {
         if (!userId) {
             return res.status(400).json({
                 message: "missing user id..."
+            })
+        }
+
+        if (!reportTo) {
+            return res.status(400).json({
+                message: "missing report to id..."
             })
         }
 
@@ -132,7 +138,7 @@ export const reportTo = async (req, res) => {
             })
         }
 
-        user.reportingTo = userId
+        user.reportingTo = reportTo
         await user.save()
 
         res.status(200).json({
@@ -142,6 +148,23 @@ export const reportTo = async (req, res) => {
 
     } catch (error) {
         console.error("error while reporting user: ", error)
+
+        res.status(500).json({
+            message: "internal server error..."
+        })
+    }
+}
+
+export const getReportees = async (req, res) => {
+    try {
+        const reportees = await User.find({ reportingTo: req.user._id }).select("name email role")
+
+        res.status(200).json({
+            message: "reportees fetched successfully...",
+            reportees
+        })
+    } catch (error) {
+        console.error("error while fetching reportees: ", error)
 
         res.status(500).json({
             message: "internal server error..."
